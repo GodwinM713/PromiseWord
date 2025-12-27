@@ -3,33 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>New Year Brochure Card</title>
+<title>Brochure Card</title>
 
 <style>
-  :root {
-    --bg1: #1e1b2e;
-    --bg2: #3b2f5c;
-    --paper: #faf8f3;
-    --ink: #2b2b2b;
-    --accent: #9b8cff;
-  }
-
   body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, var(--bg1), var(--bg2));
+    background: linear-gradient(135deg, #1c1b2f, #3b2f5c);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Georgia", serif;
   }
 
   .brochure {
     width: 92%;
     max-width: 760px;
     height: 85vh;
-    background: var(--paper);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+    background: #000;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
     border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
@@ -41,7 +32,7 @@
     inset: 0;
     display: none;
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(40px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
@@ -54,47 +45,26 @@
   .single {
     justify-content: center;
     align-items: center;
-    text-align: center;
   }
 
   .page {
     flex: 1;
-    padding: 40px 32px;
-    color: var(--ink);
-    line-height: 1.6;
+    background-size: cover;
+    background-position: center;
   }
 
   .page + .page {
-    border-left: 1px solid #e0ded8;
-  }
-
-  h1, h2, h3 {
-    margin-top: 0;
-    font-weight: normal;
-  }
-
-  h1 {
-    font-size: 2.4rem;
-    color: var(--accent);
-  }
-
-  h2 {
-    font-size: 1.8rem;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-    letter-spacing: 0.05em;
-    color: #666;
+    border-left: 1px solid rgba(255,255,255,0.15);
   }
 
   .hint {
     position: absolute;
-    bottom: 18px;
+    bottom: 14px;
     width: 100%;
     text-align: center;
-    font-size: 0.85rem;
-    color: #888;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.08em;
   }
 
   @media (max-width: 700px) {
@@ -104,7 +74,7 @@
 
     .page + .page {
       border-left: none;
-      border-top: 1px solid #e0ded8;
+      border-top: 1px solid rgba(255,255,255,0.15);
     }
   }
 </style>
@@ -114,50 +84,21 @@
 
 <div class="brochure" onclick="nextSpread()">
 
-  <!-- FRONT COVER -->
+  <!-- FRONT COVER (same for all cards) -->
   <div class="spread active single">
-    <div class="page">
-      <h1>New Year Blessing</h1>
-      <p>A message prepared with prayer and care.</p>
-      <p><strong>Tap to open</strong></p>
-    </div>
-    <div class="hint">Card No: 01</div>
+    <div class="page" style="background-image: url('../images/front.jpg');"></div>
+    <div class="hint">Tap to open • Card 01</div>
   </div>
 
-  <!-- INSIDE SPREAD (Pages 2 & 3 together) -->
+  <!-- INSIDE SPREAD (unique per card) -->
   <div class="spread">
-    <div class="page">
-      <h2>Happy New Year</h2>
-      <p>
-        May the year ahead be filled with hope, peace, and purpose.
-        May every step you take be guided with clarity and strength.
-      </p>
-      <p>
-        Even in uncertain moments, may you sense gentle direction
-        and quiet assurance.
-      </p>
-    </div>
+  <div class="page" style="background-image: url('../images/1.png');"></div>
+  <div class="page" style="background-image: url('../images/1.png');"></div>
+</div>
 
-    <div class="page">
-      <h3>Scripture</h3>
-      <p>
-        “The eyes of the Lord your God are continually on it,
-        from the beginning of the year to its end.”
-      </p>
-      <p><em>— Deuteronomy 11:12</em></p>
-    </div>
-  </div>
-
-  <!-- BACK COVER -->
+  <!-- BACK COVER (same for all cards) -->
   <div class="spread single">
-    <div class="page">
-      <h2>With prayers & gratitude</h2>
-      <p>
-        May this year unfold with meaning,
-        protection, and quiet joy.
-      </p>
-      <p><strong>Happy New Year</strong></p>
-    </div>
+    <div class="page" style="background-image: url('../images/back.jpg');"></div>
   </div>
 
 </div>
