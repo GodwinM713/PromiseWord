@@ -122,22 +122,19 @@
 
   async function drawLot() {
     const name = document.getElementById("nameInput").value.trim();
-
     if (!name) {
       alert("Please enter your name");
       return;
     }
 
     try {
+      const formData = new FormData();
+      formData.append("name", name);
+
       const response = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name })
+        body: formData   // 👈 NO headers → no preflight
       });
-
-      if (!response.ok) {
-        throw new Error("HTTP error " + response.status);
-      }
 
       const data = await response.json();
 
@@ -151,22 +148,16 @@
 
       document.getElementById("result").style.display = "block";
 
-    } catch (err) {
-      console.error(err);
+    } catch (e) {
+      console.error(e);
       alert("Network error. Please try again.");
     }
   }
 
   function openCard() {
     const num = document.getElementById("cardNum").textContent;
-
-    // YOUR PREFERRED CARD FORMAT
-    window.open(
-      `../cards/html/${num}.html`,
-      "_blank"
-    );
+    window.open(`../cards/html/${num}.html`, "_blank");
   }
 </script>
-
 </body>
 </html>
