@@ -58,8 +58,9 @@
     cursor: pointer;
   }
 
-  button:hover {
-    opacity: 0.9;
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 
   .result {
@@ -103,7 +104,7 @@
 
   <br>
 
-  <button onclick="drawLot()">Draw Lot</button>
+  <button id="drawBtn" onclick="drawLot()">Draw Lot</button>
 
   <div class="result" id="result">
     <div>Your Card Number</div>
@@ -120,10 +121,20 @@
   const API_URL =
     "https://script.google.com/macros/s/AKfycby5i0iztxI4uVMpTFTDF_8fSOs5U_U8IGswoOmf2tgzmccK3y7-b5xWBfHBETZE_Pit0Q/exec";
 
+  let isDrawing = false;
+
   async function drawLot() {
+    if (isDrawing) return; // hard lock
+    isDrawing = true;
+
+    const btn = document.getElementById("drawBtn");
+    btn.disabled = true;
+    btn.textContent = "Drawing...";
+
     const name = document.getElementById("nameInput").value.trim();
     if (!name) {
       alert("Please enter your name");
+      resetButton();
       return;
     }
 
@@ -133,13 +144,14 @@
 
       const response = await fetch(API_URL, {
         method: "POST",
-        body: formData   // 👈 NO headers → no preflight
+        body: formData
       });
 
       const data = await response.json();
 
       if (data.error) {
         alert(data.error);
+        resetButton();
         return;
       }
 
@@ -148,10 +160,22 @@
 
       document.getElementById("result").style.display = "block";
 
-    } catch (e) {
-      console.error(e);
+      // SUCCESS → permanently disable
+      btn.textContent = "Lot Drawn";
+      document.getElementById("nameInput").disabled = true;
+
+    } catch (err) {
+      console.error(err);
       alert("Network error. Please try again.");
+      resetButton();
     }
+  }
+
+  function resetButton() {
+    isDrawing = false;
+    const btn = document.getElementById("drawBtn");
+    btn.disabled = false;
+    btn.textContent = "Draw Lot";
   }
 
   function openCard() {
@@ -159,5 +183,6 @@
     window.open(`../cards/html/${num}.html`, "_blank");
   }
 </script>
+
 </body>
 </html>
