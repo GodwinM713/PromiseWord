@@ -48,13 +48,10 @@
   }
 
   .page {
-    flex: 1;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
-  }
-
-  .page + .page {
-    border-left: 1px solid rgba(255,255,255,0.15);
   }
 
   .hint {
@@ -66,17 +63,6 @@
     color: rgba(255,255,255,0.6);
     letter-spacing: 0.08em;
   }
-
-  @media (max-width: 700px) {
-    .spread.active {
-      flex-direction: column;
-    }
-
-    .page + .page {
-      border-left: none;
-      border-top: 1px solid rgba(255,255,255,0.15);
-    }
-  }
 </style>
 </head>
 
@@ -84,19 +70,18 @@
 
 <div class="brochure" onclick="nextSpread()">
 
-  <!-- FRONT COVER (same for all cards) -->
+  <!-- FRONT COVER -->
   <div class="spread active single">
     <div class="page" style="background-image: url('../images/front.png');"></div>
     <div class="hint">Tap to open • Card 01</div>
   </div>
 
-  <!-- INSIDE SPREAD (unique per card) -->
-  <div class="spread">
-  <div class="page" style="background-image: url('../images/1.png');"></div>
-  <div class="page" style="background-image: url('../images/1.png');"></div>
-</div>
+  <!-- INSIDE SPREAD (ONE IMAGE, NO DIVISION) -->
+  <div class="spread single">
+    <div class="page" style="background-image: url('../images/1.png');"></div>
+  </div>
 
-  <!-- BACK COVER (same for all cards) -->
+  <!-- BACK COVER -->
   <div class="spread single">
     <div class="page" style="background-image: url('../images/back.png');"></div>
   </div>
