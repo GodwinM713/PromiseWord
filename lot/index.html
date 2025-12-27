@@ -20,8 +20,8 @@
   .box {
     text-align: center;
     background: rgba(0,0,0,0.38);
-    padding: 42px 50px;
-    border-radius: 20px;
+    padding: 44px 50px;
+    border-radius: 22px;
     box-shadow: 0 35px 90px rgba(0,0,0,0.65);
     max-width: 420px;
     width: 90%;
@@ -129,9 +129,12 @@
     }
 
     try {
-      const response = await fetch(
-        `${API_URL}?name=${encodeURIComponent(name)}`
-      );
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name })
+      });
+
       const data = await response.json();
 
       if (data.error) {
@@ -143,6 +146,7 @@
         String(data.card).padStart(2, "0");
 
       document.getElementById("result").style.display = "block";
+
     } catch (err) {
       alert("Network error. Please try again.");
     }
@@ -160,4 +164,3 @@
 
 </body>
 </html>
-
