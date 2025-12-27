@@ -13,54 +13,77 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
   .brochure {
     cursor: pointer;
     position: relative;
-    transition: all 0.5s ease;
   }
 
   /* === SPREAD BASE === */
   .spread {
     display: none;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: scale(0.96) translateY(20px);
+    transition:
+      opacity 0.45s ease,
+      transform 0.45s ease;
   }
 
   .spread.active {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
   }
 
   /* === PAGE SURFACE === */
   .page {
-    width: 100%;
-    height: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain; /* critical fix */
+    background-size: contain;
     background-color: #000;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.45);
-    border-radius: 10px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    border-radius: 14px;
   }
 
-  /* === A4 PROPORTIONS === */
+  /* === A4 PROPORTIONS (SCALED UP) === */
   .portrait {
-    aspect-ratio: 210 / 297;   /* A4 portrait */
-    width: min(90vw, 420px);
+    aspect-ratio: 210 / 297;
+    width: min(94vw, 520px);   /* increased size */
   }
 
   .landscape {
-    aspect-ratio: 297 / 210;   /* A4 landscape */
-    width: min(92vw, 700px);
+    aspect-ratio: 297 / 210;
+    width: min(96vw, 860px);   /* increased size */
+  }
+
+  /* === TEXT PAGE (THANK YOU) === */
+  .text-page {
+    background: #faf8f3;
+    color: #2b2b2b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    font-family: Georgia, serif;
+  }
+
+  .text-page h2 {
+    font-weight: normal;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .text-page p {
+    font-size: 1.1rem;
+    line-height: 1.6;
   }
 
   .hint {
     text-align: center;
-    margin-top: 12px;
+    margin-top: 14px;
     font-size: 0.8rem;
     color: rgba(255,255,255,0.6);
     letter-spacing: 0.08em;
@@ -94,6 +117,19 @@
     </div>
   </div>
 
+  <!-- THANK YOU PAGE (A4 PORTRAIT) -->
+  <div class="spread">
+    <div class="page portrait text-page">
+      <div>
+        <h2>Thank You</h2>
+        <p>
+          Thank you for taking a moment to open and read this card.<br>
+          May the year ahead be filled with grace, peace, and purpose.
+        </p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -101,8 +137,9 @@
   let index = 0;
 
   function nextSpread() {
+    if (index >= spreads.length - 1) return; // stop at thank-you page
     spreads[index].classList.remove('active');
-    index = Math.min(index + 1, spreads.length - 1);
+    index++;
     spreads[index].classList.add('active');
   }
 </script>
