@@ -19,16 +19,17 @@
   .brochure {
     cursor: pointer;
     position: relative;
+    padding: 2vh 0; /* breathing space */
   }
 
   /* === SPREAD BASE === */
   .spread {
     display: none;
     opacity: 0;
-    transform: scale(0.9) translateY(20px);
+    transform: scale(0.92) translateY(40px);
     transition:
-      opacity 0.5s ease,
-      transform 0.5s ease;
+      opacity 0.85s ease,
+      transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   .spread.active {
@@ -43,19 +44,19 @@
     background-position: center;
     background-size: contain;
     background-color: #000;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
-    border-radius: 14px;
+    box-shadow: 0 35px 90px rgba(0,0,0,0.6);
+    border-radius: 16px;
   }
 
-  /* === A4 PROPORTIONS (SCALED UP) === */
+  /* === A4 PROPORTIONS (REDUCED SIZE) === */
   .portrait {
     aspect-ratio: 210 / 297;
-    width: min(94vw, 520px);   /* increased size */
+    width: min(90vw, 480px);
   }
 
   .landscape {
     aspect-ratio: 297 / 210;
-    width: min(96vw, 860px);   /* increased size */
+    width: min(92vw, 780px);
   }
 
   /* === TEXT PAGE (THANK YOU) === */
@@ -66,26 +67,26 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 40px;
+    padding: 48px;
     font-family: Georgia, serif;
   }
 
   .text-page h2 {
     font-weight: normal;
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 2.2rem;
+    margin-bottom: 14px;
   }
 
   .text-page p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.15rem;
+    line-height: 1.7;
   }
 
   .hint {
     text-align: center;
-    margin-top: 14px;
+    margin-top: 16px;
     font-size: 0.8rem;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.65);
     letter-spacing: 0.08em;
   }
 </style>
@@ -95,7 +96,7 @@
 
 <div class="brochure" onclick="nextSpread()">
 
-  <!-- FRONT COVER (A4 PORTRAIT) -->
+  <!-- FRONT COVER -->
   <div class="spread active">
     <div class="page portrait"
          style="background-image: url('../images/front.png');">
@@ -103,28 +104,29 @@
     <div class="hint">Tap to open • Card 01</div>
   </div>
 
-  <!-- INSIDE SPREAD (A4 LANDSCAPE) -->
+  <!-- INSIDE SPREAD -->
   <div class="spread">
     <div class="page landscape"
          style="background-image: url('../images/1.png');">
     </div>
   </div>
 
-  <!-- BACK COVER (A4 PORTRAIT) -->
+  <!-- BACK COVER -->
   <div class="spread">
     <div class="page portrait"
          style="background-image: url('../images/back.png');">
     </div>
   </div>
 
-  <!-- THANK YOU PAGE (A4 PORTRAIT) -->
+  <!-- THANK YOU PAGE -->
   <div class="spread">
     <div class="page portrait text-page">
       <div>
         <h2>Thank You</h2>
         <p>
-          Thank you for taking a moment to open and read this card.<br>
-          May the year ahead be filled with grace, peace, and purpose.
+          Thank you for taking the time to open this card.<br>
+          May the year ahead be filled with peace, grace,<br>
+          and meaningful moments.
         </p>
       </div>
     </div>
@@ -137,7 +139,7 @@
   let index = 0;
 
   function nextSpread() {
-    if (index >= spreads.length - 1) return; // stop at thank-you page
+    if (index >= spreads.length - 1) return;
     spreads[index].classList.remove('active');
     index++;
     spreads[index].classList.add('active');
