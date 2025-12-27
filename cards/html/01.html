@@ -16,49 +16,51 @@
   }
 
   .brochure {
-    width: 92%;
-    max-width: 760px;
-    height: 85vh;
-    background: #000;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-    border-radius: 12px;
-    overflow: hidden;
     cursor: pointer;
     position: relative;
+    transition: all 0.5s ease;
   }
 
+  /* === SPREAD BASE === */
   .spread {
-    position: absolute;
-    inset: 0;
     display: none;
     opacity: 0;
-    transform: translateX(40px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
   .spread.active {
-    display: flex;
+    display: block;
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 
-  .single {
-    justify-content: center;
-    align-items: center;
-  }
-
+  /* === PAGE SURFACE === */
   .page {
     width: 100%;
     height: 100%;
-    background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
+    background-size: contain; /* critical fix */
+    background-color: #000;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+    border-radius: 10px;
+  }
+
+  /* === A4 PROPORTIONS === */
+  .portrait {
+    aspect-ratio: 210 / 297;   /* A4 portrait */
+    width: min(90vw, 420px);
+  }
+
+  .landscape {
+    aspect-ratio: 297 / 210;   /* A4 landscape */
+    width: min(92vw, 700px);
   }
 
   .hint {
-    position: absolute;
-    bottom: 14px;
-    width: 100%;
     text-align: center;
+    margin-top: 12px;
     font-size: 0.8rem;
     color: rgba(255,255,255,0.6);
     letter-spacing: 0.08em;
@@ -70,32 +72,38 @@
 
 <div class="brochure" onclick="nextSpread()">
 
-  <!-- FRONT COVER -->
-  <div class="spread active single">
-    <div class="page" style="background-image: url('../images/front.png');"></div>
+  <!-- FRONT COVER (A4 PORTRAIT) -->
+  <div class="spread active">
+    <div class="page portrait"
+         style="background-image: url('../images/front.png');">
+    </div>
     <div class="hint">Tap to open • Card 01</div>
   </div>
 
-  <!-- INSIDE SPREAD (ONE IMAGE, NO DIVISION) -->
-  <div class="spread single">
-    <div class="page" style="background-image: url('../images/1.png');"></div>
+  <!-- INSIDE SPREAD (A4 LANDSCAPE) -->
+  <div class="spread">
+    <div class="page landscape"
+         style="background-image: url('../images/1.png');">
+    </div>
   </div>
 
-  <!-- BACK COVER -->
-  <div class="spread single">
-    <div class="page" style="background-image: url('../images/back.png');"></div>
+  <!-- BACK COVER (A4 PORTRAIT) -->
+  <div class="spread">
+    <div class="page portrait"
+         style="background-image: url('../images/back.png');">
+    </div>
   </div>
 
 </div>
 
 <script>
-  const spreads = document.querySelectorAll(".spread");
+  const spreads = document.querySelectorAll('.spread');
   let index = 0;
 
   function nextSpread() {
-    spreads[index].classList.remove("active");
-    index = (index + 1) % spreads.length;
-    spreads[index].classList.add("active");
+    spreads[index].classList.remove('active');
+    index = Math.min(index + 1, spreads.length - 1);
+    spreads[index].classList.add('active');
   }
 </script>
 
