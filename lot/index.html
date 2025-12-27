@@ -19,17 +19,17 @@
 
   .box {
     text-align: center;
-    background: rgba(0,0,0,0.38);
-    padding: 44px 50px;
+    background: rgba(0,0,0,0.4);
+    padding: 46px 52px;
     border-radius: 22px;
-    box-shadow: 0 35px 90px rgba(0,0,0,0.65);
+    box-shadow: 0 35px 90px rgba(0,0,0,0.7);
     max-width: 420px;
     width: 90%;
   }
 
   h1 {
     font-weight: normal;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 
   p {
@@ -38,7 +38,7 @@
   }
 
   input {
-    margin-top: 18px;
+    margin-top: 20px;
     padding: 14px 20px;
     border-radius: 28px;
     border: none;
@@ -48,8 +48,8 @@
   }
 
   button {
-    margin-top: 26px;
-    padding: 14px 30px;
+    margin-top: 28px;
+    padding: 14px 32px;
     font-size: 1rem;
     border: none;
     border-radius: 30px;
@@ -63,25 +63,25 @@
   }
 
   .result {
-    margin-top: 30px;
+    margin-top: 32px;
     display: none;
   }
 
   .card-number {
-    font-size: 2.6rem;
-    margin: 14px 0;
+    font-size: 2.8rem;
+    margin: 16px 0;
     letter-spacing: 0.18em;
   }
 
   .open-btn {
     background: none;
     border: 1px solid rgba(255,255,255,0.6);
-    padding: 12px 26px;
-    margin-top: 12px;
+    padding: 12px 28px;
+    margin-top: 14px;
   }
 
   .note {
-    margin-top: 22px;
+    margin-top: 26px;
     font-size: 0.75rem;
     opacity: 0.55;
   }
@@ -135,6 +135,10 @@
         body: JSON.stringify({ name })
       });
 
+      if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+      }
+
       const data = await response.json();
 
       if (data.error) {
@@ -148,6 +152,7 @@
       document.getElementById("result").style.display = "block";
 
     } catch (err) {
+      console.error(err);
       alert("Network error. Please try again.");
     }
   }
@@ -155,8 +160,9 @@
   function openCard() {
     const num = document.getElementById("cardNum").textContent;
 
+    // YOUR PREFERRED CARD FORMAT
     window.open(
-      `../cards/html/card.html?card=${parseInt(num, 10)}`,
+      `../cards/html/${num}.html`,
       "_blank"
     );
   }
